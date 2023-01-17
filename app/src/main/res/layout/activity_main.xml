@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/main_image"
+        android:src="@drawable/visual_collaboration"
+        app:layout_constraintBottom_toBottomOf="@id/half_horizontal_guide"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        app:layout_constraintRight_toRightOf="@id/guide_right"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/main_welcome_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/half_horizontal_guide"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        app:layout_constraintRight_toRightOf="@id/guide_right" />
+
+    <View
+        android:id="@+id/main_all_stories_v"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/primary"
+        app:layout_constraintBottom_toTopOf="@id/main_my_stories_v"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        app:layout_constraintRight_toLeftOf="@id/half_vertical_guide"
+        app:layout_constraintTop_toBottomOf="@id/half_horizontal_guide"
+        />
+
+    <TextView
+        android:id="@+id/main_all_stories_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/all_stories"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintRight_toRightOf="@id/main_all_stories_v"
+        app:layout_constraintLeft_toLeftOf="@id/main_all_stories_v"
+        app:layout_constraintTop_toTopOf="@id/main_all_stories_v"
+        app:layout_constraintBottom_toTopOf="@+id/main_add_to_queue_ic"/>
+
+    <ImageView
+        android:id="@+id/main_add_to_queue_ic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/add_to_queue"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/main_all_stories_tv"
+        app:layout_constraintBottom_toBottomOf="@id/main_all_stories_v"
+        app:layout_constraintRight_toRightOf="@id/main_all_stories_v"
+        app:layout_constraintLeft_toLeftOf="@+id/main_all_stories_v"
+        android:contentDescription="@string/icon" />
+
+
+    <View
+        android:id="@+id/main_my_stories_v"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/primary"
+        app:layout_constraintBottom_toTopOf="@id/main_favorite_stories_v"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        app:layout_constraintRight_toLeftOf="@id/half_vertical_guide"
+        app:layout_constraintTop_toBottomOf="@id/main_all_stories_v" />
+
+    <TextView
+        android:id="@+id/main_my_stories_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_stories"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintRight_toRightOf="@id/main_my_stories_v"
+        app:layout_constraintLeft_toLeftOf="@id/main_my_stories_v"
+        app:layout_constraintTop_toTopOf="@id/main_my_stories_v"
+        app:layout_constraintBottom_toTopOf="@+id/main_book_reader_ic"/>
+
+    <ImageView
+        android:id="@+id/main_book_reader_ic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/book_reader"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/main_my_stories_tv"
+        app:layout_constraintBottom_toBottomOf="@id/main_my_stories_v"
+        app:layout_constraintRight_toRightOf="@id/main_my_stories_v"
+        app:layout_constraintLeft_toLeftOf="@+id/main_my_stories_v"
+        android:contentDescription="@string/icon" />
+
+    <View
+        android:id="@+id/main_favorite_stories_v"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        app:layout_constraintRight_toLeftOf="@id/half_vertical_guide"
+        app:layout_constraintTop_toBottomOf="@id/main_my_stories_v" />
+
+    <TextView
+        android:id="@+id/main_favorite_stories_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/favorite_stories"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintRight_toRightOf="@id/main_favorite_stories_v"
+        app:layout_constraintLeft_toLeftOf="@id/main_favorite_stories_v"
+        app:layout_constraintTop_toTopOf="@id/main_favorite_stories_v"
+        app:layout_constraintBottom_toTopOf="@+id/main_favorite_ic"/>
+
+    <ImageView
+        android:id="@+id/main_favorite_ic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/favorite"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/main_favorite_stories_tv"
+        app:layout_constraintBottom_toBottomOf="@id/main_favorite_stories_v"
+        app:layout_constraintRight_toRightOf="@id/main_favorite_stories_v"
+        app:layout_constraintLeft_toLeftOf="@+id/main_favorite_stories_v"
+        android:contentDescription="@string/icon" />
+
+    <View
+        android:id="@+id/main_import_export_v"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/primary"
+        app:layout_constraintBottom_toTopOf="@id/main_profile_v"
+        app:layout_constraintLeft_toLeftOf="@id/half_vertical_guide"
+        app:layout_constraintRight_toRightOf="@id/guide_right"
+        app:layout_constraintTop_toBottomOf="@id/half_horizontal_guide" />
+
+    <TextView
+        android:id="@+id/main_import_export_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/import_export"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintRight_toRightOf="@id/main_import_export_v"
+        app:layout_constraintLeft_toLeftOf="@id/main_import_export_v"
+        app:layout_constraintTop_toTopOf="@id/main_import_export_v"
+        app:layout_constraintBottom_toTopOf="@+id/main_arrow_up_down_ic"/>
+
+    <ImageView
+        android:id="@+id/main_arrow_up_down_ic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/arrow_up_down"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/main_import_export_tv"
+        app:layout_constraintBottom_toBottomOf="@id/main_import_export_v"
+        app:layout_constraintRight_toRightOf="@id/main_import_export_v"
+        app:layout_constraintLeft_toLeftOf="@+id/main_import_export_v"
+        android:contentDescription="@string/icon" />
+
+    <View
+        android:id="@+id/main_profile_v"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/primary"
+        app:layout_constraintBottom_toTopOf="@id/main_logout_v"
+        app:layout_constraintLeft_toLeftOf="@id/half_vertical_guide"
+        app:layout_constraintRight_toRightOf="@id/guide_right"
+        app:layout_constraintTop_toBottomOf="@id/main_import_export_v" />
+
+    <TextView
+        android:id="@+id/main_profile_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profile"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintRight_toRightOf="@id/main_profile_v"
+        app:layout_constraintLeft_toLeftOf="@id/main_profile_v"
+        app:layout_constraintTop_toTopOf="@id/main_profile_v"
+        app:layout_constraintBottom_toTopOf="@+id/main_user_profile_negative_ic"/>
+
+    <ImageView
+        android:id="@+id/main_user_profile_negative_ic"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/user_profile_negative"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/main_profile_tv"
+        app:layout_constraintBottom_toBottomOf="@id/main_profile_v"
+        app:layout_constraintRight_toRightOf="@id/main_profile_v"
+        app:layout_constraintLeft_toLeftOf="@+id/main_profile_v"
+        android:contentDescription="@string/icon" />
+
+    <View
+        android:id="@+id/main_logout_v"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/half_vertical_guide"
+        app:layout_constraintRight_toRightOf="@id/guide_right"
+        app:layout_constraintTop_toBottomOf="@id/main_profile_v" />
+
+    <TextView
+        android:id="@+id/main_logout_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintRight_toRightOf="@id/main_logout_v"
+        app:layout_constraintLeft_toLeftOf="@id/main_logout_v"
+        app:layout_constraintTop_toTopOf="@id/main_logout_v"
+        app:layout_constraintBottom_toTopOf="@+id/main_login_ic"/>
+
+    <ImageView
+        android:id="@+id/main_login_ic"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/login"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/main_logout_tv"
+        app:layout_constraintBottom_toBottomOf="@id/main_logout_v"
+        app:layout_constraintRight_toRightOf="@id/main_logout_v"
+        app:layout_constraintLeft_toLeftOf="@+id/main_logout_v"
+        android:contentDescription="@string/icon" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/half_vertical_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/half_horizontal_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".4" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

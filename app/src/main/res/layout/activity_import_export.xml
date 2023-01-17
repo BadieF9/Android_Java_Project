@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ImportExport"
+    android:background="#f8f8f8">
+
+    <View
+        android:id="@+id/import_v"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/half_horizontal_guide"
+        app:layout_constraintRight_toRightOf="@id/guide_right"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        android:layout_marginTop="16dp"/>
+
+    <View
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:background="@drawable/import_export_background"
+        app:layout_constraintTop_toTopOf="@id/import_export_import_ic"
+        app:layout_constraintBottom_toBottomOf="@id/import_export_import_ic"
+        app:layout_constraintLeft_toLeftOf="@id/import_export_import_ic"
+        app:layout_constraintRight_toRightOf="@id/import_export_import_ic"/>
+
+    <ImageView
+        android:id="@+id/import_export_import_ic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/download"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="@id/import_v"
+        app:layout_constraintBottom_toTopOf="@id/import_btn"
+        app:layout_constraintLeft_toLeftOf="@id/import_v"
+        app:layout_constraintRight_toRightOf="@id/import_v"
+        android:contentDescription="@string/icon" />
+
+    <Button
+        android:id="@+id/import_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/import_v"
+        app:layout_constraintRight_toRightOf="@id/import_v"
+        app:layout_constraintBottom_toBottomOf="@id/import_v"
+        android:background="@color/primary"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/import_export_import"/>
+
+    <View
+        android:id="@+id/export_v"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="@id/half_horizontal_guide"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/guide_right"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <View
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:background="@drawable/import_export_background"
+        app:layout_constraintTop_toTopOf="@id/import_export_export_ic"
+        app:layout_constraintBottom_toBottomOf="@id/import_export_export_ic"
+        app:layout_constraintLeft_toLeftOf="@id/import_export_export_ic"
+        app:layout_constraintRight_toRightOf="@id/import_export_export_ic"/>
+
+    <ImageView
+        android:id="@+id/import_export_export_ic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/upload"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="@id/export_v"
+        app:layout_constraintBottom_toTopOf="@id/export_btn"
+        app:layout_constraintLeft_toLeftOf="@id/export_v"
+        app:layout_constraintRight_toRightOf="@id/export_v"
+        android:contentDescription="@string/icon" />
+
+    <Button
+        android:id="@+id/export_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/export_v"
+        app:layout_constraintRight_toRightOf="@id/export_v"
+        app:layout_constraintBottom_toBottomOf="@id/export_v"
+        android:background="@color/primary"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/import_export_export"/>
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/half_horizontal_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

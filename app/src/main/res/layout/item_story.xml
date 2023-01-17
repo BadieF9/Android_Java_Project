@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_lay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp">
+
+    <View
+        android:id="@+id/item_story_pic_v"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="100dp"
+        android:background="@drawable/item_story_pic"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left_start"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_story_pic_name_v"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/item_story_pic_v"
+        app:layout_constraintBottom_toBottomOf="@id/item_story_pic_v"
+        app:layout_constraintLeft_toLeftOf="@id/item_story_pic_v"
+        app:layout_constraintRight_toRightOf="@id/item_story_pic_v"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        tools:text="A"/>
+
+    <TextView
+        android:id="@+id/item_story_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toRightOf="@id/item_story_pic_v"
+        app:layout_constraintTop_toTopOf="@id/item_story_pic_v"
+        tools:text="Book A" />
+
+    <TextView
+        android:id="@+id/item_story_desc_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/item_story_name_tv"
+        app:layout_constraintRight_toLeftOf="@id/guide_right"
+        app:layout_constraintTop_toBottomOf="@id/item_story_name_tv"
+        tools:text="fdsd;sfld;lsafkd';sfkd;lsfkd;lsafkd;'skfd;'skafld;'sfkd;s'fdkls';af" />
+
+    <TextView
+        android:id="@+id/item_story_time_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintLeft_toLeftOf="@id/item_story_desc_tv"
+        app:layout_constraintTop_toBottomOf="@id/item_story_desc_tv"
+        app:layout_constraintBottom_toTopOf="@id/horizontal_line"
+        tools:text="1 min" />
+    
+    <View
+        android:id="@+id/horizontal_line"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_story_time_tv"
+        app:layout_constraintLeft_toLeftOf="@id/item_story_time_tv"/>
+
+    <ImageView
+        android:id="@+id/favorite_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/favorite_red_empty"
+        android:scaleType="fitXY"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/guide_right"
+        android:contentDescription="@string/favorite_red_empty_icon" />
+
+    <ImageView
+        android:id="@+id/trashcan_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/trashcan"
+        android:scaleType="fitXY"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/item_story_time_tv"
+        app:layout_constraintLeft_toRightOf="@id/guide_right"
+        android:contentDescription="@string/favorite_red_empty_icon" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_left_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="50dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

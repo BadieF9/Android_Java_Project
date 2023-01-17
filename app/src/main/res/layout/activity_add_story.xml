@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddStory">
+
+    <EditText
+        android:id="@+id/add_story_title_edt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="Title"
+        android:hint="@string/title"
+        android:inputType="text"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        app:layout_constraintRight_toRightOf="@id/guide_right"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/add_story_s"/>
+
+    <Spinner
+        android:id="@+id/add_story_s"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        app:layout_constraintRight_toRightOf="@id/guide_right"
+        app:layout_constraintTop_toBottomOf="@id/add_story_title_edt"
+        app:layout_constraintBottom_toTopOf="@id/add_story_date_tv"/>
+
+    <TextView
+        android:id="@+id/add_story_date_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:hint="@string/published_date"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        app:layout_constraintRight_toLeftOf="@id/add_story_calendar_iv"
+        app:layout_constraintTop_toBottomOf="@id/add_story_s"
+        app:layout_constraintBottom_toTopOf="@id/add_story_text_edt"/>
+
+    <ImageView
+        android:id="@+id/add_story_calendar_iv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/calendar"
+        app:layout_constraintLeft_toRightOf="@id/add_story_date_tv"
+        app:layout_constraintTop_toBottomOf="@id/add_story_s"
+        app:layout_constraintRight_toLeftOf="@id/guide_right"
+        android:contentDescription="@string/calendar_icon"
+        app:layout_constraintBottom_toTopOf="@id/add_story_text_edt"/>
+
+    <EditText
+        android:id="@+id/add_story_text_edt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="Title"
+        android:hint="@string/text"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/add_story_calendar_iv"
+        app:layout_constraintBottom_toTopOf="@id/add_story_pick_image_btn"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        app:layout_constraintRight_toRightOf="@id/guide_right"/>
+
+    <Button
+        android:id="@+id/add_story_pick_image_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/add_story_text_edt"
+        app:layout_constraintBottom_toTopOf="@id/add_story_image_iv"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        app:layout_constraintRight_toRightOf="@id/guide_right"
+        android:layout_marginBottom="16dp"
+        android:text="@string/pick_image"/>
+
+    <ImageView
+        android:id="@+id/add_story_image_iv"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/story_image"
+        android:scaleType="fitXY"
+        android:src="@drawable/image_placeholder"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        app:layout_constraintRight_toRightOf="@id/guide_right"
+        app:layout_constraintBottom_toTopOf="@id/add_story_save_btn"
+        app:layout_constraintTop_toBottomOf="@id/add_story_pick_image_btn"/>
+
+    <Button
+        android:id="@+id/add_story_save_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/guide_left"
+        app:layout_constraintRight_toRightOf="@id/guide_right"
+        android:layout_marginBottom="16dp"
+        android:text="@string/save"/>
+
+<!--    <androidx.constraintlayout.widget.Guideline-->
+<!--        android:id="@+id/half_horizontal_guide"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintGuide_percent=".5" />-->
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

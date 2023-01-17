@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SingleStory">
+
+        <ImageView
+            android:id="@+id/single_story_image"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/story_image"
+            android:scaleType="fitXY"
+            android:src="@drawable/image_placeholder"
+            app:layout_constraintLeft_toLeftOf="@id/guide_left"
+            app:layout_constraintRight_toRightOf="@id/guide_right"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/single_story_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/guide_left"
+            app:layout_constraintTop_toBottomOf="@id/single_story_image"
+            tools:text="Book A" />
+
+        <ImageView
+            android:id="@+id/speaker_tts_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/main_image"
+            android:src="@drawable/speaker"
+            app:layout_constraintTop_toTopOf="@id/single_story_title"
+            app:layout_constraintRight_toRightOf="@id/guide_right"/>
+
+        <TextView
+            android:id="@+id/single_story_age_group_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/single_story_age_group_label"
+            app:layout_constraintLeft_toLeftOf="@id/guide_left"
+            app:layout_constraintTop_toBottomOf="@id/single_story_title" />
+
+        <TextView
+            android:id="@+id/single_story_age_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/single_story_age_group_label"
+            app:layout_constraintTop_toTopOf="@id/single_story_age_group_label"
+            tools:text=" Board Book" />
+
+        <TextView
+            android:id="@+id/single_story_published_date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/signle_story_published_date_label"
+            app:layout_constraintLeft_toLeftOf="@id/guide_left"
+            app:layout_constraintTop_toBottomOf="@id/single_story_age_group_label" />
+
+        <TextView
+            android:id="@+id/single_story_published_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/single_story_published_date_label"
+            app:layout_constraintTop_toTopOf="@id/single_story_published_date_label"
+            tools:text=" Board Book" />
+
+        <TextView
+            android:id="@+id/single_story_estimate_time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/single_activity_estimate_time_label"
+            app:layout_constraintLeft_toLeftOf="@id/guide_left"
+            app:layout_constraintTop_toBottomOf="@id/single_story_published_date_label" />
+
+        <TextView
+            android:id="@+id/single_story_estimate_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/single_story_estimate_time_label"
+            app:layout_constraintTop_toTopOf="@id/single_story_estimate_time_label"
+            tools:text=" 1 min" />
+
+        <View
+            android:id="@+id/single_story_horizontal_line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintLeft_toLeftOf="@id/guide_left"
+            app:layout_constraintRight_toRightOf="@id/guide_right"
+            app:layout_constraintTop_toBottomOf="@id/single_story_estimate_time_label"
+            android:background="@color/primary"/>
+
+        <TextView
+            android:id="@+id/single_story_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/guide_left"
+            app:layout_constraintRight_toRightOf="@id/guide_right"
+            app:layout_constraintTop_toBottomOf="@id/single_story_horizontal_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="hello world"
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/single_story_sv"
+            app:layout_constraintGuide_begin="16dp"
+            app:layout_constraintLeft_toLeftOf="@+id/single_story_sv"
+            app:layout_constraintRight_toRightOf="@+id/single_story_sv"
+            app:layout_constraintTop_toTopOf="@+id/single_story_sv" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/single_story_sv"
+            app:layout_constraintGuide_end="16dp"
+            app:layout_constraintLeft_toLeftOf="@+id/single_story_sv"
+            app:layout_constraintRight_toRightOf="@+id/single_story_sv"
+            app:layout_constraintTop_toTopOf="@+id/single_story_sv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
