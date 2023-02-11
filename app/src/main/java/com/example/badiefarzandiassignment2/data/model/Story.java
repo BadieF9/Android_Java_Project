@@ -1,23 +1,26 @@
 package com.example.badiefarzandiassignment2.data.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity
 public class Story {
-    @PrimaryKey(autoGenerate = true)
-    private long id;
+    @PrimaryKey @NonNull @SerializedName("objectId")
+    private String id;
     private String title;
     private String description;
     private String readingTime;
     private String age;
-    private long userId;
+    private String userId;
     private String publishedDate;
     private boolean isFavorite;
     private String photoPath;
 
-    public Story(long id, String title, String description, String age, long userId, String publishedDate, String photoPath, boolean isFavorite) {
+    public Story(@NonNull String id, String title, String description, String age, String userId, String publishedDate, String photoPath, boolean isFavorite) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -33,7 +36,7 @@ public class Story {
     }
 
     @Ignore
-    public Story(String title, String description, String age, long userId, String publishedDate, String photoPath, boolean isFavorite) {
+    public Story(String title, String description, String age, String userId, String publishedDate, String photoPath, boolean isFavorite) {
         this.title = title;
         this.description = description;
         this.age = age;
@@ -47,9 +50,9 @@ public class Story {
         this.publishedDate = publishedDate;
     }
 
-    public long getId() { return id; }
+    public String getId() { return id; }
 
-    public void setId(long id) { this.id = id; }
+    public void setId(String id) { this.id = id; }
 
     public String getTitle() {
         return title;
@@ -83,11 +86,11 @@ public class Story {
         this.readingTime = publishedDate;
     }
 
-    public long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) { this.userId = userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 
     public boolean getIsFavorite() {
         return isFavorite;

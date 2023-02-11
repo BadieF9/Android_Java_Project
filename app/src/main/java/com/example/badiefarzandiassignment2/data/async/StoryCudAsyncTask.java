@@ -52,9 +52,10 @@ public class StoryCudAsyncTask extends AsyncTask<String, Void, Long> {
         String publishedDate = strings[4];
         String photoPath = strings[5];
         String isFavorite = strings[6];
-        story = new Story(title, description, age, Long.parseLong(userId), publishedDate, photoPath, Boolean.parseBoolean(isFavorite));
+        story = new Story(title, description, age, userId, publishedDate, photoPath, Boolean.parseBoolean(isFavorite));
         return storyDao.insert(story);
     }
+
     public Long updateDoInBackground(String... strings) {
         String id = strings[0];
         String title = strings[1];
@@ -64,9 +65,8 @@ public class StoryCudAsyncTask extends AsyncTask<String, Void, Long> {
         String publishedDate = strings[5];
         String photoPath = strings[6];
         String isFavorite = strings[7];
-        story = new Story(Long.parseLong(id), title, description, age, Long.parseLong(userId), publishedDate, photoPath, Boolean.parseBoolean(isFavorite));
+        story = new Story(id, title, description, age, userId, publishedDate, photoPath, Boolean.parseBoolean(isFavorite));
         long mamad = storyDao.update(story);
-        Log.i("mamad", "storyDao.delete: " + mamad);
         return new Long(mamad);
     }
 
@@ -79,8 +79,8 @@ public class StoryCudAsyncTask extends AsyncTask<String, Void, Long> {
         String publishedDate = strings[5];
         String photoPath = strings[6];
         String isFavorite = strings[7];
-        story = new Story(Long.parseLong(id), title, description, age, Long.parseLong(userId), publishedDate, photoPath, Boolean.parseBoolean(isFavorite));
-        return (long) storyDao.delete(Long.parseLong(id));
+        story = new Story(id, title, description, age, userId, publishedDate, photoPath, Boolean.parseBoolean(isFavorite));
+        return (long) storyDao.delete(id);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class StoryCudAsyncTask extends AsyncTask<String, Void, Long> {
 
     private void insertOnPostExecute(Long storyId) {
         if(storyId > 0) {
-            story.setId(storyId);
+            story.setId(storyId.toString());
             dbResponse.onSuccess(story);
         } else {
             Error error = new Error("Inserting story failed!!!");
@@ -110,7 +110,6 @@ public class StoryCudAsyncTask extends AsyncTask<String, Void, Long> {
     }
 
     private void updateOnPostExecute(Long affectedRows) {
-        Log.i("mamad", "Hello world" + affectedRows);
         if(affectedRows > 0) {
             dbResponse.onSuccess(story);
         } else {

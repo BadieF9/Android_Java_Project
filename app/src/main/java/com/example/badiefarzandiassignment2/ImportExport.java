@@ -173,7 +173,6 @@ public class ImportExport extends AppCompatActivity {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         List<Story> stories = gson.fromJson(fileContents, new TypeToken<List<Story>>(){}.getType());
-        Log.i("mamad", stories.toString());
 
         for (Story story : stories) {
             StoryCudAsyncTask storyCudAsyncTask = new StoryCudAsyncTask(this, Action.INSERT_ACTION, new DbResponse<Story>() {
@@ -191,7 +190,7 @@ public class ImportExport extends AppCompatActivity {
                     story.getTitle(),
                     story.getDescription(),
                     story.getAge(),
-                    Long.toString(story.getUserId()),
+                    story.getUserId(),
                     story.getPublishedDate(),
                     Boolean.toString(story.getIsFavorite())
             );

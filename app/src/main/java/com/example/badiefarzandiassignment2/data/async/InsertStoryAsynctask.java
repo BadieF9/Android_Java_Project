@@ -39,7 +39,7 @@ public class InsertStoryAsynctask extends AsyncTask<String, Void, Long> {
         String publishedDate = strings[4];
         String photoPath = strings[5];
         String isFavorite = strings[6];
-        story = new Story(title, description, age, Long.parseLong(userId), publishedDate, photoPath, Boolean.parseBoolean(isFavorite));
+        story = new Story(title, description, age, userId, publishedDate, photoPath, Boolean.parseBoolean(isFavorite));
         return storyDao.insert(story);
     }
 
@@ -47,7 +47,7 @@ public class InsertStoryAsynctask extends AsyncTask<String, Void, Long> {
     protected void onPostExecute(Long storyId) {
         super.onPostExecute(storyId);
         if(storyId > 0) {
-            story.setId(storyId);
+            story.setId(storyId.toString());
             dbResponse.onSuccess(story);
         } else {
             Error error = new Error("Inserting story failed!!!");

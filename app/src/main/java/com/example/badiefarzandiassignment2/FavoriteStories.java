@@ -27,7 +27,8 @@ public class FavoriteStories extends AppCompatActivity {
 //        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
 //        setSupportActionBar(myToolbar);
 
-        for (Story story : Main.stories) {
+        AppData appData = (AppData) getApplication();
+        for (Story story : appData.getStories()) {
             if (story.getIsFavorite()) {
                 filteredStories.add(story);
             }

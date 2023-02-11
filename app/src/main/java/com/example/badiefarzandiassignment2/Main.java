@@ -17,19 +17,23 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.badiefarzandiassignment2.data.async.DbAsyncTask;
+import com.example.badiefarzandiassignment2.data.async.DbResult;
 import com.example.badiefarzandiassignment2.data.async.GetUserAsyncTask;
+import com.example.badiefarzandiassignment2.data.async.commands.DeleteSignedInUserCommand;
+import com.example.badiefarzandiassignment2.data.async.commands.GetSignedInUsersCommand;
 import com.example.badiefarzandiassignment2.data.db.DbResponse;
 import com.example.badiefarzandiassignment2.data.model.Story;
 import com.example.badiefarzandiassignment2.data.model.UserWithStories;
 import com.example.badiefarzandiassignment2.databinding.ActivityMainBinding;
 import com.example.badiefarzandiassignment2.databinding.ProfileDialogBinding;
+import com.example.badiefarzandiassignment2.network.NetworkHelper;
 
 import java.util.List;
 
 public class Main extends AppCompatActivity {
-    public static List<Story> stories;
-    public static List<Story> myStories;
     private ActivityMainBinding binding;
+    private NetworkHelper networkHelper;
     private SharedPreferences preferences;
     public static String userId;
     View allStoriesV;
@@ -40,6 +44,7 @@ public class Main extends AppCompatActivity {
     View logoutV;
     TextView mainWelcomeTv;
     private Intent intent;
+    private AppData appData;
 
     private ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -57,10 +62,12 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.networkHelper = NetworkHelper.getInstance(Main.this);
 
         initialWidgets();
         preferences = getSharedPreferences("SignUp", Context.MODE_PRIVATE);
         intent = getIntent();
+        this.appData = (AppData) getApplication();
         mainWelcomeTv.setText("Welcome " + preferences.getString(Main.userId + "_firstName", ""));
         if(Main.userId == null) Main.userId = intent.getStringExtra(MainActivity.USER_ID);
     }
@@ -83,10 +90,11 @@ public class Main extends AppCompatActivity {
     }
 
     public void myStories(View view) {
-        GetUserAsyncTask getUserAsyncTask = new GetUserAsyncTask(this, new DbResponse<UserWithStories>() {
+        networkHelper.getUserStories(preferences.getString(Constant.USER_SESSION_TOKEN, ""), appData.getCurrentUser(), new DbResponse<List<Story>>() {
             @Override
-            public void onSuccess(UserWithStories userWithStories) {
-                Main.myStories = userWithStories.stories;
+            public void onSuccess(List<Story> stories) {
+                AppData appData = (AppData) getApplication();
+                appData.setMyStories(stories);
                 Intent newintent = new Intent(Main.this, MyStories.class);
                 newintent.putExtra(MainActivity.USER_ID, Main.userId);
                 activityResultLauncher.launch(newintent);
@@ -97,7 +105,22 @@ public class Main extends AppCompatActivity {
                 Toast.makeText(Main.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        getUserAsyncTask.execute(Main.userId);
+//        GetUserAsyncTask getUserAsyncTask = new GetUserAsyncTask(this, new DbResponse<UserWithStories>() {
+//            @Override
+//            public void onSuccess(UserWithStories userWithStories) {
+//                AppData appData = (AppData) getApplication();
+//                appData.setMyStories(userWithStories.stories);
+//                Intent newintent = new Intent(Main.this, MyStories.class);
+//                newintent.putExtra(MainActivity.USER_ID, Main.userId);
+//                activityResultLauncher.launch(newintent);
+//            }
+//
+//            @Override
+//            public void onError(Error error) {
+//                Toast.makeText(Main.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        getUserAsyncTask.execute(Main.userId);
     }
 
     public void allStories(View view) {
@@ -116,6 +139,19 @@ public class Main extends AppCompatActivity {
     }
 
     public void logout(View view) {
+        DeleteSignedInUserCommand deleteSignedInUserCommand = new DeleteSignedInUserCommand(Main.this, appData.getSignedInUser().getId());
+        DbAsyncTask<Long> dbAsyncTask = new DbAsyncTask<>(new DbResponse<DbResult<Long>>() {
+            @Override
+            public void onSuccess(DbResult<Long> stringDbResult) {
+                Toast.makeText(Main.this, "You logged out successfully", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(Error error) {
+                Toast.makeText(Main.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        dbAsyncTask.execute(deleteSignedInUserCommand);
         finish();
     }
 
@@ -124,23 +160,12 @@ public class Main extends AppCompatActivity {
         ProfileDialogBinding profileDialogBinding = ProfileDialogBinding.inflate(getLayoutInflater());
         View dialogRoot = profileDialogBinding.getRoot();
 
-        GetUserAsyncTask getUserAsyncTask = new GetUserAsyncTask(this, new DbResponse<UserWithStories>() {
-            @Override
-            public void onSuccess(UserWithStories userWithStories) {
-                profileDialogBinding.profileDialogEmailTv.setText(userWithStories.user.getUsername());
-                profileDialogBinding.profileDialogGenderTv.setText(userWithStories.user.getGender());
-                profileDialogBinding.profileDialogNameTv.setText(userWithStories.user.getFirstName() + " " + userWithStories.user.getLastName());
-                profileDialogBinding.profileDialogSendToTv.setText(userWithStories.user.getSendingType());
-                builder.setView(dialogRoot);
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-
-            @Override
-            public void onError(Error error) {
-                Toast.makeText(Main.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        getUserAsyncTask.execute(Main.userId);
+        profileDialogBinding.profileDialogEmailTv.setText(appData.getCurrentUser().getUsername());
+        profileDialogBinding.profileDialogGenderTv.setText(appData.getCurrentUser().getGender());
+        profileDialogBinding.profileDialogNameTv.setText(appData.getCurrentUser().getFirstName() + " " + appData.getCurrentUser().getLastName());
+        profileDialogBinding.profileDialogSendToTv.setText(appData.getCurrentUser().getSendingType());
+        builder.setView(dialogRoot);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

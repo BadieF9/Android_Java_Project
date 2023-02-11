@@ -54,7 +54,8 @@ public class MyStories extends AppCompatActivity {
         intent = getIntent();
         MyStories.filteredStories = new ArrayList<>();
 
-        for (Story story : Main.myStories) {
+        AppData appData = (AppData) getApplication();
+        for (Story story : appData.getMyStories()) {
             filteredStories.add(story);
         }
 

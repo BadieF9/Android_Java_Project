@@ -44,7 +44,7 @@ public class InsertUserAsynctask extends AsyncTask<String, Void, Long> {
     protected void onPostExecute(Long userId) {
         super.onPostExecute(userId);
         if(userId > 0) {
-            user.setId(userId);
+            user.setId(userId.toString());
             dbResponse.onSuccess(user);
         } else {
             Error error = new Error("Inserting user failed!!!");

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,14 +13,19 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.badiefarzandiassignment2.data.async.DbAsyncTask;
+import com.example.badiefarzandiassignment2.data.async.DbResult;
 import com.example.badiefarzandiassignment2.data.async.InsertUserAsynctask;
 import com.example.badiefarzandiassignment2.data.async.UserExistsAsyncTask;
+import com.example.badiefarzandiassignment2.data.async.commands.InsertUserCommand;
 import com.example.badiefarzandiassignment2.data.db.DbResponse;
 import com.example.badiefarzandiassignment2.data.model.User;
+import com.example.badiefarzandiassignment2.network.NetworkHelper;
 
 public class SignUp extends AppCompatActivity {
 
-    private SharedPreferences preferences;
+//    private SharedPreferences preferences;
+    private NetworkHelper networkHelper;
     private EditText firstNameEdt;
     private EditText lastNameEdt;
     private EditText emailEdt;
@@ -37,7 +43,8 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         initialWidgets();
-        preferences = getPreferences(Context.MODE_PRIVATE);
+//        preferences = getPreferences(Context.MODE_PRIVATE);
+        this.networkHelper = NetworkHelper.getInstance(getApplicationContext());
     }
 
     private void initialWidgets() {
@@ -93,39 +100,78 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void saveForm() {
-        UserExistsAsyncTask userExistsAsyncTask = new UserExistsAsyncTask(this, new DbResponse<Boolean>() {
+        String email = emailEdt.getText().toString();
+        String password = passwordEdt.getText().toString();
+        String firstName = firstNameEdt.getText().toString();
+        String lastName = lastNameEdt.getText().toString();
+        String gender = maleGenderRb.isChecked() ? "male" : "female";
+        String sendingType = email_chbox.isChecked() && sms_chbox.isChecked() ? "email,sms" : email_chbox.isChecked() ? "email" : "sms";
+        final User newUser = new User(email, password, firstName, lastName, gender, sendingType);
+
+        networkHelper.signupUser(newUser, new DbResponse<User>() {
             @Override
-            public void onSuccess(Boolean userExists) {
-                InsertUserAsynctask insertUserAsynctask = new InsertUserAsynctask(getApplicationContext(), new DbResponse<User>() {
+            public void onSuccess(User user) {
+                newUser.setId(user.getId());
+                InsertUserCommand insertUserCommand = new InsertUserCommand(getApplicationContext(), newUser);
+                DbAsyncTask<User> dbAsyncTask = new DbAsyncTask(new DbResponse<DbResult<User>>() {
                     @Override
-                    public void onSuccess(User user) {
-                        sendToast("User created successfully\n Please Login");
+                    public void onSuccess(DbResult<User> dbResult) {
+                        sendToast(getString(R.string.user_signup_success));
                         finish();
                     }
 
                     @Override
                     public void onError(Error error) {
+                        error.printStackTrace();
                         sendToast("Something went wrong! \nRegister failed!");
                     }
                 });
-                insertUserAsynctask.execute(
-                        emailEdt.getText().toString(),
-                        passwordEdt.getText().toString(),
-                        firstNameEdt.getText().toString(),
-                        lastNameEdt.getText().toString(),
-                        maleGenderRb.isChecked() ? "male" : "female",
-                        email_chbox.isChecked() && sms_chbox.isChecked() ? "email,sms" : email_chbox.isChecked() ? "email" : "sms"
-                );
+                dbAsyncTask.execute(insertUserCommand);
             }
 
             @Override
             public void onError(Error error) {
-                sendToast("User exists with this email.\nPlease choose another one");
+                error.printStackTrace();
+                String errorMsg = error != null ? error.getMessage() : getString(R.string.user_signup_error);
+                sendToast(errorMsg);
             }
         });
-        userExistsAsyncTask.execute(emailEdt.getText().toString());
+
+        //  signup in the local database
+//        UserExistsAsyncTask userExistsAsyncTask = new UserExistsAsyncTask(this, new DbResponse<Boolean>() {
+//            @Override
+//            public void onSuccess(Boolean userExists) {
+//                InsertUserAsynctask insertUserAsynctask = new InsertUserAsynctask(getApplicationContext(), new DbResponse<User>() {
+//                    @Override
+//                    public void onSuccess(User user) {
+//                        sendToast("User created successfully\n Please Login");
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    public void onError(Error error) {
+//                        sendToast("Something went wrong! \nRegister failed!");
+//                    }
+//                });
+//                insertUserAsynctask.execute(
+//                        emailEdt.getText().toString(),
+//                        passwordEdt.getText().toString(),
+//                        firstNameEdt.getText().toString(),
+//                        lastNameEdt.getText().toString(),
+//                        maleGenderRb.isChecked() ? "male" : "female",
+//                        email_chbox.isChecked() && sms_chbox.isChecked() ? "email,sms" : email_chbox.isChecked() ? "email" : "sms"
+//                );
+//            }
+//
+//            @Override
+//            public void onError(Error error) {
+//                sendToast("User exists with this email.\nPlease choose another one");
+//            }
+//        });
+//        userExistsAsyncTask.execute(emailEdt.getText().toString());
 
 
+        //  signup in the shared preferences
 //        SharedPreferences.Editor editor = preferences.edit();
 //        editor.putString(emailEdt.getText().toString() + "_firstName", firstNameEdt.getText().toString());
 //        editor.putString(emailEdt.getText().toString() + "_lastName", lastNameEdt.getText().toString());

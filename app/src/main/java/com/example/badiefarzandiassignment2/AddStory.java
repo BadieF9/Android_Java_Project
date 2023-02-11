@@ -25,20 +25,27 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.example.badiefarzandiassignment2.data.async.DbAsyncTask;
+import com.example.badiefarzandiassignment2.data.async.DbResult;
 import com.example.badiefarzandiassignment2.data.async.InsertStoryAsynctask;
+import com.example.badiefarzandiassignment2.data.async.commands.InsertStoryCommand;
 import com.example.badiefarzandiassignment2.data.db.DbResponse;
 import com.example.badiefarzandiassignment2.data.model.Story;
+import com.example.badiefarzandiassignment2.data.model.User;
 import com.example.badiefarzandiassignment2.databinding.ActivityAddStoryBinding;
+import com.example.badiefarzandiassignment2.network.NetworkHelper;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class AddStory extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private ActivityAddStoryBinding binding;
+    private NetworkHelper networkHelper;
     private String[] items;
     private String selectedItem;
     private SharedPreferences preferences;
@@ -53,8 +60,9 @@ public class AddStory extends AppCompatActivity implements AdapterView.OnItemSel
         binding = ActivityAddStoryBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        preferences = getSharedPreferences("SignUp", Context.MODE_PRIVATE);
+        preferences = getSharedPreferences(Constant.USER_SHARED_PREFRENCES, Context.MODE_PRIVATE);
         intent = getIntent();
+        networkHelper = NetworkHelper.getInstance(AddStory.this);
 
         items = new String[]{"Early Readers", "Chapter Books", "Middle Grade Fiction", "Young adult"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
@@ -146,7 +154,6 @@ public class AddStory extends AppCompatActivity implements AdapterView.OnItemSel
 
         // Save a file: path for use with ACTION_VIEW intents
         this.currentPhotoPath = image.getAbsolutePath();
-        Log.i("mamad", this.currentPhotoPath);
         return image;
     }
 
@@ -174,31 +181,50 @@ public class AddStory extends AppCompatActivity implements AdapterView.OnItemSel
            if(!binding.addStoryTextEdt.getText().toString().isEmpty()) {
                if(!selectedItem.isEmpty()) {
                    if(!binding.addStoryDateTv.getText().toString().isEmpty()) {
-                       Log.i("mamad", "AddStory: " + intent.getStringExtra(MainActivity.USER_ID));
-                       InsertStoryAsynctask insertStoryAsynctask = new InsertStoryAsynctask(this, new DbResponse<Story>() {
-                           @Override
-                           public void onSuccess(Story story) {
-                               Main.stories.add(story);
-                               MyStories.filteredStories.add(story);
-                               Intent intent = new Intent();
-                               intent.putExtra(Constant.MYSTORY_CREATE_SUCCESS, "true");
-                               setResult(Activity.RESULT_OK, intent);
-                               finish();
-                           }
-
-                           @Override
-                           public void onError(Error error) {
-                               sendToast("Something went wrong! \nAdding story failed!");
-                           }
-                       });
-                       insertStoryAsynctask.execute(
+                       Story story = new Story(
                                binding.addStoryTitleEdt.getText().toString(),
                                binding.addStoryTextEdt.getText().toString(),
                                selectedItem,
                                intent.getStringExtra(MainActivity.USER_ID),
                                binding.addStoryDateTv.getText().toString(),
                                this.currentPhotoPath,
-                               Boolean.toString(false));
+                               false);
+                       networkHelper.insertStory(story, preferences.getString(Constant.USER_SESSION_TOKEN, ""), new DbResponse<Story>() {
+                           @Override
+                           public void onSuccess(Story newStory) {
+                               story.setId(newStory.getId());
+                               InsertStoryCommand insertStoryCommand = new InsertStoryCommand(getApplicationContext(), story);
+                               DbAsyncTask<Story> dbAsyncTask = new DbAsyncTask<>(new DbResponse<DbResult<Story>>() {
+                                   @Override
+                                   public void onSuccess(DbResult<Story> storyDbResult) {
+                                       AppData appData = (AppData) getApplication();
+                                       List<Story> stories = appData.getStories();
+                                       stories.add(storyDbResult.getResult());
+                                       appData.setStories(stories);
+
+                                       MyStories.filteredStories.add(storyDbResult.getResult());
+
+                                       Intent intent = new Intent();
+                                       intent.putExtra(Constant.MYSTORY_CREATE_SUCCESS, "true");
+                                       setResult(Activity.RESULT_OK, intent);
+                                       finish();
+                                   }
+
+                                   @Override
+                                   public void onError(Error error) {
+                                       error.printStackTrace();
+                                       sendToast("Something went wrong! \nAdding story failed!");
+                                   }
+                               });
+                               dbAsyncTask.execute(insertStoryCommand);
+                           }
+
+                           @Override
+                           public void onError(Error error) {
+                               error.printStackTrace();
+                               sendToast("Adding Story to global database failed!");
+                           }
+                       });
                    } else {
                        sendToast("Please select the published date");
                    }

@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface StoryDao {
     @Insert
-    long insert(Story story);
+    Long insert(Story story);
 
     @Update
     int update(Story story);
@@ -22,5 +22,5 @@ public interface StoryDao {
     List<Story> getAll();
 
     @Query("Delete FROM story WHERE id=:id")
-    int delete(long id);
+    int delete(String id);
 }

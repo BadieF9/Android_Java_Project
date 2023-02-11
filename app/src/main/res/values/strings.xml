@@ -40,4 +40,14 @@
     <string name="signle_story_published_date_label">Published Date:</string>
     <string name="single_activity_estimate_time_label">Estimate Time:</string>
     <string name="pick_image">Pick Image</string>
+    <string name="appId">rR520m3HOqEYuMPR3KZyE7gbmec1ztlmmWF8U5EV</string>
+    <string name="appKey">Mo6siWt4i0tO2IaWFGy5RnhV9OdgAMQTCmfunVio</string>
+    <string name="hostUrl">https://parseapi.back4app.com</string>
+    <string name="network_connection_error">Network connection error</string>
+    <string name="network_json_error">Network json error</string>
+    <string name="network_general_error">Network general error</string>
+    <string name="user_signup_error">User signup error</string>
+    <string name="user_signup_success">User signup success</string>
+    <string name="login_invalid_inputs">Invalid or incomplete inputs</string>
+    <string name="story_delete_access_denied">You are not allowed to remove this story</string>
 </resources>

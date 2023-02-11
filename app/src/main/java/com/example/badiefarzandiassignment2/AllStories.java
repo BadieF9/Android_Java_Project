@@ -28,7 +28,8 @@ public class AllStories extends AppCompatActivity {
 //        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
 //        setSupportActionBar(myToolbar);
 
-        storyAdapter = new StoryAdapter(this, Main.stories, new StoryAdapter.StoryAdapterCallback() {
+        AppData appData = (AppData) getApplication();
+        storyAdapter = new StoryAdapter(this, appData.getStories(), new StoryAdapter.StoryAdapterCallback() {
             @Override
             public void onStoryClicked(int position) {
                 storyAdapter.openSingleStory(position);

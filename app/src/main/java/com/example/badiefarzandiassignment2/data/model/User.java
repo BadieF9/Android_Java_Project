@@ -1,21 +1,25 @@
 package com.example.badiefarzandiassignment2.data.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity
 public class User {
-    @PrimaryKey(autoGenerate = true)
-    private long id;
+    @PrimaryKey @NonNull @SerializedName("objectId")
+    private String id;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
     private String gender;
     private String sendingType;
+    private String sessionToken;
 
-    public User(long id, String username, String password, String firstName, String lastName, String gender, String sendingType) {
+    public User(@NonNull String id, String username, String password, String firstName, String lastName, String gender, String sendingType) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -35,11 +39,17 @@ public class User {
         this.sendingType = sendingType;
     }
 
-    public long getId() {
+    @Ignore
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -90,6 +100,10 @@ public class User {
     public void setSendingType(String sendingType) {
         this.sendingType = sendingType;
     }
+
+    public String getSessionToken() { return sessionToken; }
+
+    public void setSessionToken(String sessionToken) { this.sessionToken = sessionToken; }
 
     @Override
     public String toString() {

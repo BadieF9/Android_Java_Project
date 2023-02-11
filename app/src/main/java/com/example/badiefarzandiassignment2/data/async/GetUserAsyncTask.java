@@ -38,7 +38,7 @@ public class GetUserAsyncTask extends AsyncTask<String, Void, UserWithStories> {
 
     @Override
     protected UserWithStories doInBackground(String... strings) {
-        return userDao.getUserById(Long.parseLong(strings[0]));
+        return userDao.getUserById(strings[0]);
     }
 
     @Override

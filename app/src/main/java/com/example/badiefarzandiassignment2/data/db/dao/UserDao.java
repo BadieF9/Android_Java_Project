@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface UserDao {
     @Insert
-    long insert(User user);
+    Long insert(User user);
 
     @Update
     int update(User user);
@@ -24,7 +24,7 @@ public interface UserDao {
 
     @Transaction
     @Query("SELECT * FROM user WHERE id=:id")
-    UserWithStories getUserById(long id);
+    UserWithStories getUserById(String id);
 
     @Transaction
     @Query("SELECT * FROM user")
