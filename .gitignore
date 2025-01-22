@@ -1,15 +1,39 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Gradle files
+.gradle/
+build/
+
+# Local configuration files
 local.properties
+
+# IDE-specific files
+.idea/
+*.iml
+.DS_Store
+
+# Log files
+*.log
+
+# Build output files
+*.apk
+*.aab
+
+# Proguard/R8 output
+proguard-rules.pro
+proguard-project.txt
+consumer-proguard-files.map
+mapping.txt
+
+# Tests
+**/build/
+
+# Modularization files
+**/module-*/build/
+
+# Kotlin metadata
+*.kotlin_module
+
+# External native build directories
+build/intermediates/cmake/
+
+# Dependency caches
+**/.cxx/
